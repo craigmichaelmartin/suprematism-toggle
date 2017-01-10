@@ -6,4 +6,10 @@ declare var require: any;
   selector: 'supre-root',
   template: require('./app.component.html')
 })
-export class AppComponent {}
+export class AppComponent {
+
+  log(event) {
+    console.log(event);
+  }
+
+}
