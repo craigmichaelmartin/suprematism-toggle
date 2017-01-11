@@ -12,7 +12,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 var common_1 = require('@angular/common');
-var repo_name_component_1 = require('./toggle.component');
+var toggle_component_1 = require('./toggle.component');
 var core_1 = require('@angular/core');
 __export(require('./toggle.component'));
 var ToggleModule = (function () {
@@ -24,13 +24,13 @@ var ToggleModule = (function () {
                 common_1.CommonModule,
             ],
             declarations: [
-                repo_name_component_1.ToggleComponent,
+                toggle_component_1.ToggleComponent,
             ],
             exports: [
-                repo_name_component_1.ToggleComponent,
+                toggle_component_1.ToggleComponent,
             ],
             entryComponents: [
-                repo_name_component_1.ToggleComponent,
+                toggle_component_1.ToggleComponent,
             ]
         }), 
         __metadata('design:paramtypes', [])

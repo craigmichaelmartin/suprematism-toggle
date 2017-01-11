@@ -1,0 +1,43 @@
+@import '../node_modules/suprematism-scss/colors';
+
+.Toggle {
+  display: flex;
+}
+.Toggle-item {
+  height: 32px;
+  min-width: 24px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 10px;
+  border-top: 1px solid $blue-light;
+  border-right: 1px solid $blue-light;
+  border-bottom: 1px solid $blue-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  color: $gray;
+}
+.Toggle-item:first-child {
+  border-left: 1px solid $blue-light;
+}
+.Toggle-item:hover {
+  cursor: default;
+  background-color: $blue-light;
+}
+.Toggle-item.is-active {
+  background-color: $blue;
+  color: white;
+}
+.Toggle-item.is-disabled {
+  background-color: #ebebeb;
+}
+.Toggle-item.is-warning:hover {
+  background-color: lighten(#dc0800, 20%);
+}
+.Toggle-item.is-active.is-warning {
+  background-color: #dc0800;
+}
+.Toggle-itemIcon {
+  font-size: 2em;
+}
