@@ -1,10 +1,10 @@
-<div style="padding-left:100px; padding-bottom: 200px">
+<div>
   <h4>Unrelated</h4>
   <supre-toggle
     (toggleUpdated)="log($event)"
     [unrelated]="true"
     [items]="[
-      {text: 'foo', disabled: true},
+      {text: 'foo', disabled: this.dynamicDisabled},
       {text: 'bar', default: true},
       {text: 'baz', value: 'bazzzzz'},
       {icon: 'ion-nuclear', value: 'qux', warning: true}
@@ -15,10 +15,12 @@
   <supre-toggle
     (toggleUpdated)="log($event)"
     [items]="[
-      {text: 'foo', disabled: true},
+      {text: 'foo', disabled: this.dynamicDisabled},
       {text: 'bar', default: true},
       {text: 'baz', value: 'bazzzzz'},
       {icon: 'ion-nuclear', value: 'qux', warning: true}
     ]"
   ></supre-toggle>
 </div>
+<hr>
+<button (click)="updateDynamicDisabled()">Toggle Disabled</button>

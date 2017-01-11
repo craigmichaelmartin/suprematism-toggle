@@ -23,12 +23,14 @@ var ToggleComponent = (function () {
         this.subscriptions = [];
         this.storeSource = new Subject_1.Subject();
     }
-    ToggleComponent.prototype.ngOnInit = function () {
-        this.cleanItems = this.items.map(function (item) {
+    ToggleComponent.prototype.ngOnChanges = function () {
+        this.cleanItems = this.items.map(function (item, i) {
             return Object.assign({}, item, {
                 value: item.value != null ? item.value : item.text
             });
         });
+    };
+    ToggleComponent.prototype.ngOnInit = function () {
         var defaultItem = this.cleanItems.find(function (item) { return item.default; });
         this.startWith = defaultItem && defaultItem.value;
         var falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});

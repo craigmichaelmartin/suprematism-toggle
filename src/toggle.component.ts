@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, AfterViewInit, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, AfterViewInit, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -21,7 +21,7 @@ export interface Item {
   template: require('./toggle.component.html'),
   styles: [require('./toggle.component.css')]
 })
-export class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ToggleComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input() items: Array<Item> = [];
   @Input() unrelated: boolean = false;
@@ -32,12 +32,15 @@ export class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
   storeSource: Subject<any> = new Subject();
   store$: Observable<any>;
 
-  ngOnInit() {
-    this.cleanItems = this.items.map(item =>
+  ngOnChanges() {
+    this.cleanItems = this.items.map((item, i) =>
       Object.assign({}, item, {
         value: item.value != null ? item.value : item.text
       })
     );
+  }
+
+  ngOnInit() {
     const defaultItem = this.cleanItems.find(item => item.default);
     this.startWith = defaultItem && defaultItem.value;
 

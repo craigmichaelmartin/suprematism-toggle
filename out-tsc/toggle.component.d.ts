@@ -1,4 +1,4 @@
-import { EventEmitter, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { EventEmitter, AfterViewInit, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -15,7 +15,7 @@ export interface Item {
     disabled?: boolean;
     warning?: boolean;
 }
-export declare class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
+export declare class ToggleComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     items: Array<Item>;
     unrelated: boolean;
     toggleUpdated: EventEmitter<{}>;
@@ -24,6 +24,7 @@ export declare class ToggleComponent implements OnInit, AfterViewInit, OnDestroy
     subscriptions: Array<ISubscription>;
     storeSource: Subject<any>;
     store$: Observable<any>;
+    ngOnChanges(): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

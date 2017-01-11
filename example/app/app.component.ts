@@ -8,8 +8,14 @@ declare var require: any;
 })
 export class AppComponent {
 
+  dynamicDisabled = false;
+
   log(event) {
     console.log(event);
+  }
+
+  updateDynamicDisabled() {
+    this.dynamicDisabled = !this.dynamicDisabled;
   }
 
 }
