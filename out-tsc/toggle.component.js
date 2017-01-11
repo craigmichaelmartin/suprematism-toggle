@@ -14,13 +14,14 @@ require('rxjs/add/operator/startWith');
 require('rxjs/add/operator/distinctUntilChanged');
 require('rxjs/add/operator/filter');
 require('rxjs/add/operator/share');
+require('rxjs/add/operator/scan');
 var ToggleComponent = (function () {
     function ToggleComponent() {
         this.items = [];
-        this.canReturnToEmpty = false;
+        this.unrelated = false;
         this.toggleUpdated = new core_1.EventEmitter();
         this.subscriptions = [];
-        this.activeSource = new Subject_1.Subject();
+        this.storeSource = new Subject_1.Subject();
     }
     ToggleComponent.prototype.ngOnInit = function () {
         this.cleanItems = this.items.map(function (item) {
@@ -30,17 +31,29 @@ var ToggleComponent = (function () {
         });
         var defaultItem = this.cleanItems.find(function (item) { return item.default; });
         this.startWith = defaultItem && defaultItem.value;
+        var falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});
+        var startWithObj = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = !!item.default, _a)); var _a; }, {});
+        this.store$ = this.storeSource
+            .startWith(startWithObj)
+            .scan(this.unrelated
+            ? function (last, current) {
+                if (last === void 0) { last = {}; }
+                return Object.assign({}, last, (_a = {}, _a[current] = !last[current], _a));
+                var _a;
+            }
+            : function (last, current) {
+                if (last === void 0) { last = {}; }
+                return Object.assign({}, falseState, (_a = {}, _a[current] = true, _a));
+                var _a;
+            })
+            .distinctUntilChanged(function (x, y) { return JSON.stringify(x) === JSON.stringify(y); });
     };
     ToggleComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this.active$ = this.activeSource
-            .share()
-            .startWith(this.startWith)
-            .filter(function (value) { return !!_this.cleanItems.find(function (item) { return item.value === value; }); })
-            .distinctUntilChanged();
         (_a = this.subscriptions).push.apply(_a, [
-            this.active$.subscribe(function (item) {
-                return _this.toggleUpdated.emit(item);
+            this.store$.subscribe(function (items) {
+                var active = Object.keys(items).filter(function (key) { return items[key]; });
+                _this.toggleUpdated.emit(_this.unrelated ? active : active[0]);
             })
         ]);
         var _a;
@@ -55,7 +68,7 @@ var ToggleComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
-    ], ToggleComponent.prototype, "canReturnToEmpty", void 0);
+    ], ToggleComponent.prototype, "unrelated", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

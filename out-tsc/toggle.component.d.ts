@@ -6,6 +6,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/scan';
 export interface Item {
     value?: string;
     text?: string;
@@ -16,13 +17,13 @@ export interface Item {
 }
 export declare class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
     items: Array<Item>;
-    canReturnToEmpty: boolean;
+    unrelated: boolean;
     toggleUpdated: EventEmitter<{}>;
     cleanItems: Array<Item>;
     startWith: string;
     subscriptions: Array<ISubscription>;
-    activeSource: Subject<Item>;
-    active$: Observable<string>;
+    storeSource: Subject<any>;
+    store$: Observable<any>;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

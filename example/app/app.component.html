@@ -1,4 +1,17 @@
 <div style="padding-left:100px; padding-bottom: 200px">
+  <h4>Unrelated</h4>
+  <supre-toggle
+    (toggleUpdated)="log($event)"
+    [unrelated]="true"
+    [items]="[
+      {text: 'foo', disabled: true},
+      {text: 'bar', default: true},
+      {text: 'baz', value: 'bazzzzz'},
+      {icon: 'ion-nuclear', value: 'qux', warning: true}
+    ]"
+  ></supre-toggle>
+
+  <h4>Related</h4>
   <supre-toggle
     (toggleUpdated)="log($event)"
     [items]="[

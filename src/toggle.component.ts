@@ -6,6 +6,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/scan';
 
 export interface Item {
   value?: string;
@@ -23,13 +24,13 @@ export interface Item {
 export class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() items: Array<Item> = [];
-  @Input() canReturnToEmpty: boolean = false;
+  @Input() unrelated: boolean = false;
   @Output() toggleUpdated = new EventEmitter();
   cleanItems: Array<Item>;
   startWith: string;
   subscriptions: Array<ISubscription> = [];
-  activeSource: Subject<Item> = new Subject<Item>();
-  active$: Observable<string>;
+  storeSource: Subject<any> = new Subject();
+  store$: Observable<any>;
 
   ngOnInit() {
     this.cleanItems = this.items.map(item =>
@@ -39,19 +40,31 @@ export class ToggleComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     const defaultItem = this.cleanItems.find(item => item.default);
     this.startWith = defaultItem && defaultItem.value;
+
+    const falseState = this.cleanItems.reduce(
+      (obj, item) => Object.assign({}, obj, {[item.value]: false}),
+      {}
+    );
+    const startWithObj = this.cleanItems.reduce(
+      (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
+      {}
+    );
+    this.store$ = this.storeSource
+      .startWith(startWithObj)
+      .scan(this.unrelated
+        ? (last = {}, current) =>
+            Object.assign({}, last, { [current]: !last[current] })
+        : (last = {}, current) =>
+            Object.assign({}, falseState, { [current]: true }))
+      .distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y));
   }
 
   ngAfterViewInit() {
-    this.active$ = this.activeSource
-      .share()
-      .startWith(this.startWith)
-      .filter((value) => !!this.cleanItems.find((item) => item.value === value))
-      .distinctUntilChanged();
-
     this.subscriptions.push(...[
-      this.active$.subscribe(item =>
-        this.toggleUpdated.emit(item)
-      )
+      this.store$.subscribe(items => {
+        const active = Object.keys(items).filter(key => items[key]);
+        this.toggleUpdated.emit(this.unrelated ? active : active[0]);
+      })
     ]);
   }
 
