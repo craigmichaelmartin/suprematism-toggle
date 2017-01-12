@@ -32,7 +32,12 @@ export class ToggleComponent implements OnInit, AfterViewInit, OnChanges, OnDest
   storeSource: Subject<any> = new Subject();
   store$: Observable<any>;
 
-  ngOnChanges() {
+  ngOnChanges(simpleChanges) {
+    // ngOnChanges is triggered according to strict equality
+    if (JSON.stringify(simpleChanges.items.currentValue) ===
+          JSON.stringify(simpleChanges.items.previousValue)) {
+      return;
+    }
     this.cleanItems = this.items.map((item, i) =>
       Object.assign({}, item, {
         value: item.value != null ? item.value : item.text

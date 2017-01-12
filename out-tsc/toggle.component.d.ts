@@ -24,7 +24,7 @@ export declare class ToggleComponent implements OnInit, AfterViewInit, OnChanges
     subscriptions: Array<ISubscription>;
     storeSource: Subject<any>;
     store$: Observable<any>;
-    ngOnChanges(): void;
+    ngOnChanges(simpleChanges: any): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

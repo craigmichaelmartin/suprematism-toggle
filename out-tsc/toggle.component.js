@@ -23,7 +23,12 @@ var ToggleComponent = (function () {
         this.subscriptions = [];
         this.storeSource = new Subject_1.Subject();
     }
-    ToggleComponent.prototype.ngOnChanges = function () {
+    ToggleComponent.prototype.ngOnChanges = function (simpleChanges) {
+        // ngOnChanges is triggered according to strict equality
+        if (JSON.stringify(simpleChanges.items.currentValue) ===
+            JSON.stringify(simpleChanges.items.previousValue)) {
+            return;
+        }
         this.cleanItems = this.items.map(function (item, i) {
             return Object.assign({}, item, {
                 value: item.value != null ? item.value : item.text
