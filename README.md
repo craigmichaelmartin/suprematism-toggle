@@ -45,6 +45,7 @@ A component for toggleable button groups
 - `Toggle-item.is-active` - Item is selected
 - `Toggle-item.is-disabled` - Item is not selectable
 - `Toggle-item.is-warning` - Item is presented with a warning ui
+- `Toggle-item.is-icon` - Item is solely an icon - which then uses different styling
 
 
 ## Example

@@ -6,7 +6,8 @@
     [ngClass]="{
       'is-active': !item.disabled && ((store$ | async)[item.value]),
       'is-disabled': item.disabled,
-      'is-warning': item.warning
+      'is-warning': item.warning,
+      'is-icon': (item.icon != null) && (item.text == null)
     }"
   >
     <span *ngIf="item.icon != null" class="Toggle-itemIcon" [ngClass]="item.icon"></span>
