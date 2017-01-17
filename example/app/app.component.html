@@ -7,7 +7,7 @@
       {text: 'foo', disabled: this.dynamicDisabled},
       {text: 'bar', default: true},
       {text: 'baz', value: 'bazzzzz'},
-      {icon: 'ion-nuclear', value: 'qux', warning: true}
+      {text: 'bad', warning: true}
     ]"
   ></supre-toggle>
 
@@ -18,7 +18,18 @@
       {text: 'foo', disabled: this.dynamicDisabled},
       {text: 'bar', default: true},
       {text: 'baz', value: 'bazzzzz'},
-      {icon: 'ion-nuclear', value: 'qux', warning: true}
+      {text: 'bad', warning: true}
+    ]"
+  ></supre-toggle>
+
+  <h4>Icons Unrelated</h4>
+  <supre-toggle
+    (toggleUpdated)="log($event)"
+    [unrelated]="true"
+    [items]="[
+      {icon: 'ion-refresh', value: 'refresh', disabled: this.dynamicDisabled},
+      {icon: 'ion-funnel', value: 'filter', default: true},
+      {icon: 'ion-settings', value: 'settings'}
     ]"
   ></supre-toggle>
 </div>
