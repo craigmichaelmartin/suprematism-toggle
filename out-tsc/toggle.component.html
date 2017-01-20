@@ -1,7 +1,7 @@
 <div class="Toggle">
   <div
     *ngFor="let item of cleanItems;"
-    (click)="!item.disabled && storeSource.next(item.value)"
+    (click)="onClick(item);"
     class="Toggle-item"
     [ngClass]="{
       'is-active': !item.disabled && ((store$ | async)[item.value]),
