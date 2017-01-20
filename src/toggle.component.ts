@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, AfterViewInit, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -21,15 +21,17 @@ export interface Item {
   template: require('./toggle.component.html'),
   styles: [require('./toggle.component.css')]
 })
-export class ToggleComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class ToggleComponent implements OnInit, OnChanges {
 
   @Input() items: Array<Item> = [];
   @Input() unrelated: boolean = false;
+  @Input() storeSource: Subject<any>;
+  @Input() storeStream: Observable<any>; // not used
+  @Input() key: string;
   @Output() toggleUpdated = new EventEmitter();
   cleanItems: Array<Item>;
   startWith: string;
   subscriptions: Array<ISubscription> = [];
-  storeSource: Subject<any> = new Subject();
   store$: Observable<any>;
 
   ngOnChanges(simpleChanges) {
@@ -61,23 +63,30 @@ export class ToggleComponent implements OnInit, AfterViewInit, OnChanges, OnDest
       .startWith(startWithObj)
       .scan(this.unrelated
         ? (last = {}, current) =>
-            Object.assign({}, last, { [current]: !last[current] })
+            Object.assign({}, last, { [current[this.key]]: !last[current[this.key]] })
         : (last = {}, current) =>
-            Object.assign({}, falseState, { [current]: true }))
+            Object.assign({}, falseState, { [current[this.key]]: true }))
       .distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y));
   }
 
-  ngAfterViewInit() {
-    this.subscriptions.push(...[
-      this.store$.subscribe(items => {
-        const active = Object.keys(items).filter(key => items[key]);
-        this.toggleUpdated.emit(this.unrelated ? active : active[0]);
-      })
-    ]);
+  onClick(item) {
+    if (!item.disabled) {
+      this.storeSource.next({[this.key]: item.value});
+    }
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
+  // ngAfterViewInit() {
+  //   this.subscriptions.push(...[
+  //     this.store$.subscribe(items => {
+  //       const active = Object.keys(items).filter(key => items[key]);
+  //       // this.toggleUpdated.emit(this.unrelated ? active : active[0]);
+  //       this.storeSource.next({[this.key]: this.unrelated ? active : active[0]);
+  //     })
+  //   ]);
+  // }
+
+  // ngOnDestroy() {
+  //   this.subscriptions.forEach(sub => sub.unsubscribe());
+  // }
 
 }

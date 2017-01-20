@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Observable_1 = require('rxjs/Observable');
 var Subject_1 = require('rxjs/Subject');
 require('rxjs/add/operator/startWith');
 require('rxjs/add/operator/distinctUntilChanged');
@@ -21,7 +22,6 @@ var ToggleComponent = (function () {
         this.unrelated = false;
         this.toggleUpdated = new core_1.EventEmitter();
         this.subscriptions = [];
-        this.storeSource = new Subject_1.Subject();
     }
     ToggleComponent.prototype.ngOnChanges = function (simpleChanges) {
         // ngOnChanges is triggered according to strict equality
@@ -36,6 +36,7 @@ var ToggleComponent = (function () {
         });
     };
     ToggleComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var defaultItem = this.cleanItems.find(function (item) { return item.default; });
         this.startWith = defaultItem && defaultItem.value;
         var falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});
@@ -45,28 +46,21 @@ var ToggleComponent = (function () {
             .scan(this.unrelated
             ? function (last, current) {
                 if (last === void 0) { last = {}; }
-                return Object.assign({}, last, (_a = {}, _a[current] = !last[current], _a));
+                return Object.assign({}, last, (_a = {}, _a[current[_this.key]] = !last[current[_this.key]], _a));
                 var _a;
             }
             : function (last, current) {
                 if (last === void 0) { last = {}; }
-                return Object.assign({}, falseState, (_a = {}, _a[current] = true, _a));
+                return Object.assign({}, falseState, (_a = {}, _a[current[_this.key]] = true, _a));
                 var _a;
             })
             .distinctUntilChanged(function (x, y) { return JSON.stringify(x) === JSON.stringify(y); });
     };
-    ToggleComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        (_a = this.subscriptions).push.apply(_a, [
-            this.store$.subscribe(function (items) {
-                var active = Object.keys(items).filter(function (key) { return items[key]; });
-                _this.toggleUpdated.emit(_this.unrelated ? active : active[0]);
-            })
-        ]);
+    ToggleComponent.prototype.onClick = function (item) {
+        if (!item.disabled) {
+            this.storeSource.next((_a = {}, _a[this.key] = item.value, _a));
+        }
         var _a;
-    };
-    ToggleComponent.prototype.ngOnDestroy = function () {
-        this.subscriptions.forEach(function (sub) { return sub.unsubscribe(); });
     };
     __decorate([
         core_1.Input(), 
@@ -76,6 +70,19 @@ var ToggleComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Boolean)
     ], ToggleComponent.prototype, "unrelated", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Subject_1.Subject)
+    ], ToggleComponent.prototype, "storeSource", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Observable_1.Observable)
+    ], ToggleComponent.prototype, "storeStream", void 0);
+    __decorate([
+        // not used
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ToggleComponent.prototype, "key", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
