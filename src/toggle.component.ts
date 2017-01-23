@@ -26,13 +26,13 @@ export class ToggleComponent implements OnInit, OnChanges {
   @Input() items: Array<Item> = [];
   @Input() unrelated: boolean = false;
   @Input() storeSource: Subject<any>;
-  @Input() storeStream: Observable<any>; // not used
+  @Input() storeStream: Observable<any>;
   @Input() key: string;
   @Output() toggleUpdated = new EventEmitter();
   cleanItems: Array<Item>;
   startWith: string;
   subscriptions: Array<ISubscription> = [];
-  store$: Observable<any>;
+  falseState: any;
 
   ngOnChanges(simpleChanges) {
     // ngOnChanges is triggered according to strict equality
@@ -51,7 +51,7 @@ export class ToggleComponent implements OnInit, OnChanges {
     const defaultItem = this.cleanItems.find(item => item.default);
     this.startWith = defaultItem && defaultItem.value;
 
-    const falseState = this.cleanItems.reduce(
+    this.falseState = this.cleanItems.reduce(
       (obj, item) => Object.assign({}, obj, {[item.value]: false}),
       {}
     );
@@ -59,34 +59,24 @@ export class ToggleComponent implements OnInit, OnChanges {
       (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
       {}
     );
-    this.store$ = this.storeSource
-      .startWith(startWithObj)
-      .scan(this.unrelated
-        ? (last = {}, current) =>
-            Object.assign({}, last, { [current[this.key]]: !last[current[this.key]] })
-        : (last = {}, current) =>
-            Object.assign({}, falseState, { [current[this.key]]: true }))
-      .distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y));
+    const startValue = Object.keys(startWithObj).filter(key => startWithObj[key]);
+    this.storeSource.next({
+      type: 'SET_TOGGLE',
+      key: this.key,
+      value: this.unrelated ? startValue : startValue[0]
+    });
   }
 
   onClick(item) {
     if (!item.disabled) {
-      this.storeSource.next({[this.key]: item.value});
+      this.storeSource.next({
+        type: 'UPDATE_TOGGLE',
+        related: !this.unrelated,
+        falseState: this.falseState,
+        key: this.key,
+        value: item.value
+      });
     }
   }
-
-  // ngAfterViewInit() {
-  //   this.subscriptions.push(...[
-  //     this.store$.subscribe(items => {
-  //       const active = Object.keys(items).filter(key => items[key]);
-  //       // this.toggleUpdated.emit(this.unrelated ? active : active[0]);
-  //       this.storeSource.next({[this.key]: this.unrelated ? active : active[0]);
-  //     })
-  //   ]);
-  // }
-
-  // ngOnDestroy() {
-  //   this.subscriptions.forEach(sub => sub.unsubscribe());
-  // }
 
 }

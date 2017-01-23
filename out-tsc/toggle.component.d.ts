@@ -25,7 +25,7 @@ export declare class ToggleComponent implements OnInit, OnChanges {
     cleanItems: Array<Item>;
     startWith: string;
     subscriptions: Array<ISubscription>;
-    store$: Observable<any>;
+    falseState: any;
     ngOnChanges(simpleChanges: any): void;
     ngOnInit(): void;
     onClick(item: any): void;

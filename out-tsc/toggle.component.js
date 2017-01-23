@@ -36,31 +36,27 @@ var ToggleComponent = (function () {
         });
     };
     ToggleComponent.prototype.ngOnInit = function () {
-        var _this = this;
         var defaultItem = this.cleanItems.find(function (item) { return item.default; });
         this.startWith = defaultItem && defaultItem.value;
-        var falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});
+        this.falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});
         var startWithObj = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = !!item.default, _a)); var _a; }, {});
-        this.store$ = this.storeSource
-            .startWith(startWithObj)
-            .scan(this.unrelated
-            ? function (last, current) {
-                if (last === void 0) { last = {}; }
-                return Object.assign({}, last, (_a = {}, _a[current[_this.key]] = !last[current[_this.key]], _a));
-                var _a;
-            }
-            : function (last, current) {
-                if (last === void 0) { last = {}; }
-                return Object.assign({}, falseState, (_a = {}, _a[current[_this.key]] = true, _a));
-                var _a;
-            })
-            .distinctUntilChanged(function (x, y) { return JSON.stringify(x) === JSON.stringify(y); });
+        var startValue = Object.keys(startWithObj).filter(function (key) { return startWithObj[key]; });
+        this.storeSource.next({
+            type: 'SET_TOGGLE',
+            key: this.key,
+            value: this.unrelated ? startValue : startValue[0]
+        });
     };
     ToggleComponent.prototype.onClick = function (item) {
         if (!item.disabled) {
-            this.storeSource.next((_a = {}, _a[this.key] = item.value, _a));
+            this.storeSource.next({
+                type: 'UPDATE_TOGGLE',
+                related: !this.unrelated,
+                falseState: this.falseState,
+                key: this.key,
+                value: item.value
+            });
         }
-        var _a;
     };
     __decorate([
         core_1.Input(), 
@@ -79,7 +75,6 @@ var ToggleComponent = (function () {
         __metadata('design:type', Observable_1.Observable)
     ], ToggleComponent.prototype, "storeStream", void 0);
     __decorate([
-        // not used
         core_1.Input(), 
         __metadata('design:type', String)
     ], ToggleComponent.prototype, "key", void 0);
