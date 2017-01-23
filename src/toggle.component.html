@@ -4,7 +4,7 @@
     (click)="onClick(item);"
     class="Toggle-item"
     [ngClass]="{
-      'is-active': !item.disabled && ((store$ | async)[item.value]),
+      'is-active': !item.disabled && (unrelated ? ((storeStream | async)[key].indexOf(item.value) > -1) : ((storeStream | async)[key] === item.value)),
       'is-disabled': item.disabled,
       'is-warning': item.warning,
       'is-icon': (item.icon != null) && (item.text == null)
