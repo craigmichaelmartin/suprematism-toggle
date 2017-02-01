@@ -36,23 +36,28 @@ var ToggleComponent = (function () {
         });
     };
     ToggleComponent.prototype.ngOnInit = function () {
-        var defaultItem = this.cleanItems.find(function (item) { return item.default; });
-        this.startWith = defaultItem && defaultItem.value;
-        this.falseState = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = false, _a)); var _a; }, {});
-        var startWithObj = this.cleanItems.reduce(function (obj, item) { return Object.assign({}, obj, (_a = {}, _a[item.value] = !!item.default, _a)); var _a; }, {});
-        var startValue = Object.keys(startWithObj).filter(function (key) { return startWithObj[key]; });
-        this.storeSource.next({
-            type: 'SET_TOGGLE',
-            key: this.key,
-            value: this.unrelated ? startValue : startValue[0]
-        });
+        // const defaultItem = this.cleanItems.find(item => item.default);
+        // this.startWith = defaultItem && defaultItem.value;
+        // this.falseState = this.cleanItems.reduce(
+        //   (obj, item) => Object.assign({}, obj, {[item.value]: false}),
+        //   {}
+        // );
+        // const startWithObj = this.cleanItems.reduce(
+        //   (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
+        //   {}
+        // );
+        // const startValue = Object.keys(startWithObj).filter(key => startWithObj[key]);
+        // this.storeSource.next({
+        //   type: 'SET_TOGGLE',
+        //   key: this.key,
+        //   value: this.unrelated ? startValue : startValue[0]
+        // });
     };
     ToggleComponent.prototype.onClick = function (item) {
         if (!item.disabled) {
             this.storeSource.next({
                 type: 'UPDATE_TOGGLE',
                 related: !this.unrelated,
-                falseState: this.falseState,
                 key: this.key,
                 value: item.value
             });

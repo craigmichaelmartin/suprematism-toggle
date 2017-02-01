@@ -48,23 +48,23 @@ export class ToggleComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    const defaultItem = this.cleanItems.find(item => item.default);
-    this.startWith = defaultItem && defaultItem.value;
+    // const defaultItem = this.cleanItems.find(item => item.default);
+    // this.startWith = defaultItem && defaultItem.value;
 
-    this.falseState = this.cleanItems.reduce(
-      (obj, item) => Object.assign({}, obj, {[item.value]: false}),
-      {}
-    );
-    const startWithObj = this.cleanItems.reduce(
-      (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
-      {}
-    );
-    const startValue = Object.keys(startWithObj).filter(key => startWithObj[key]);
-    this.storeSource.next({
-      type: 'SET_TOGGLE',
-      key: this.key,
-      value: this.unrelated ? startValue : startValue[0]
-    });
+    // this.falseState = this.cleanItems.reduce(
+    //   (obj, item) => Object.assign({}, obj, {[item.value]: false}),
+    //   {}
+    // );
+    // const startWithObj = this.cleanItems.reduce(
+    //   (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
+    //   {}
+    // );
+    // const startValue = Object.keys(startWithObj).filter(key => startWithObj[key]);
+    // this.storeSource.next({
+    //   type: 'SET_TOGGLE',
+    //   key: this.key,
+    //   value: this.unrelated ? startValue : startValue[0]
+    // });
   }
 
   onClick(item) {
@@ -72,7 +72,6 @@ export class ToggleComponent implements OnInit, OnChanges {
       this.storeSource.next({
         type: 'UPDATE_TOGGLE',
         related: !this.unrelated,
-        falseState: this.falseState,
         key: this.key,
         value: item.value
       });
