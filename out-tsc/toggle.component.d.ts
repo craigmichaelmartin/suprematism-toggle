@@ -1,7 +1,4 @@
-import { EventEmitter, OnChanges, OnInit } from '@angular/core';
-import { ISubscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { EventEmitter, OnInit } from '@angular/core';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
@@ -11,22 +8,14 @@ export interface Item {
     value?: string;
     text?: string;
     icon?: string;
-    default?: boolean;
-    disabled?: boolean;
-    warning?: boolean;
 }
-export declare class ToggleComponent implements OnInit, OnChanges {
+export declare class ToggleComponent implements OnInit {
     items: Array<Item>;
-    unrelated: boolean;
-    storeSource: Subject<any>;
-    storeStream: Observable<any>;
-    key: string;
+    disabledItemValues: Array<string> | true;
+    activeItemValues: Array<string> | true;
+    warningItemValues: Array<string>;
     toggleUpdated: EventEmitter<{}>;
-    cleanItems: Array<Item>;
-    startWith: string;
-    subscriptions: Array<ISubscription>;
-    falseState: any;
-    ngOnChanges(simpleChanges: any): void;
+    mappedItems: Array<Item>;
     ngOnInit(): void;
     onClick(item: any): void;
 }

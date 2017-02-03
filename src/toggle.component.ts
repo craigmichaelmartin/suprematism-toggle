@@ -1,7 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { ISubscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
@@ -12,69 +9,32 @@ export interface Item {
   value?: string;
   text?: string;
   icon?: string;
-  default?: boolean;
-  disabled?: boolean;
-  warning?: boolean;
 }
 @Component({
   selector: 'supre-toggle',
   template: require('./toggle.component.html'),
   styles: [require('./toggle.component.css')]
 })
-export class ToggleComponent implements OnInit, OnChanges {
+export class ToggleComponent implements OnInit {
 
   @Input() items: Array<Item> = [];
-  @Input() unrelated: boolean = false;
-  @Input() storeSource: Subject<any>;
-  @Input() storeStream: Observable<any>;
-  @Input() key: string;
+  @Input() disabledItemValues: Array<string> | true = [];
+  @Input() activeItemValues: Array<string> | true = [];
+  @Input() warningItemValues: Array<string> = [];
   @Output() toggleUpdated = new EventEmitter();
-  cleanItems: Array<Item>;
-  startWith: string;
-  subscriptions: Array<ISubscription> = [];
-  falseState: any;
+  mappedItems: Array<Item>;
 
-  ngOnChanges(simpleChanges) {
-    // ngOnChanges is triggered according to strict equality
-    if (JSON.stringify(simpleChanges.items.currentValue) ===
-          JSON.stringify(simpleChanges.items.previousValue)) {
-      return;
-    }
-    this.cleanItems = this.items.map((item, i) =>
+  ngOnInit() {
+    this.mappedItems = this.items.map((item, i) =>
       Object.assign({}, item, {
         value: item.value != null ? item.value : item.text
       })
     );
   }
 
-  ngOnInit() {
-    // const defaultItem = this.cleanItems.find(item => item.default);
-    // this.startWith = defaultItem && defaultItem.value;
-
-    // this.falseState = this.cleanItems.reduce(
-    //   (obj, item) => Object.assign({}, obj, {[item.value]: false}),
-    //   {}
-    // );
-    // const startWithObj = this.cleanItems.reduce(
-    //   (obj, item) => Object.assign({}, obj, {[item.value]: !!item.default}),
-    //   {}
-    // );
-    // const startValue = Object.keys(startWithObj).filter(key => startWithObj[key]);
-    // this.storeSource.next({
-    //   type: 'SET_TOGGLE',
-    //   key: this.key,
-    //   value: this.unrelated ? startValue : startValue[0]
-    // });
-  }
-
   onClick(item) {
     if (!item.disabled) {
-      this.storeSource.next({
-        type: 'UPDATE_TOGGLE',
-        related: !this.unrelated,
-        key: this.key,
-        value: item.value
-      });
+      this.toggleUpdated.next(item);
     }
   }
 
