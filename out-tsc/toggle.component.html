@@ -1,12 +1,17 @@
 <div class="Toggle">
   <div
-    *ngFor="let item of cleanItems;"
+    *ngFor="let item of mappedItems;"
     (click)="onClick(item);"
     class="Toggle-item"
     [ngClass]="{
-      'is-active': !item.disabled && (unrelated ? ((storeStream | async)[key].indexOf(item.value) > -1) : ((storeStream | async)[key] === item.value)),
-      'is-disabled': item.disabled,
-      'is-warning': item.warning,
+      'is-active': (activeItemValues === true
+          || (activeItemValues && activeItemValues.indexOf(item.value) > -1))
+        && !(disabledItemValues === true
+          || (disabledItemValues && disabledItemValues.indexOf(item.value) > -1)),
+      'is-disabled': (disabledItemValues === true
+          || (disabledItemValues && disabledItemValues.indexOf(item.value) > -1)),
+      'is-warning': (warningItemValues === true
+          || (warningItemValues && warningItemValues.indexOf(item.value) > -1)),
       'is-icon': (item.icon != null) && (item.text == null)
     }"
   >
