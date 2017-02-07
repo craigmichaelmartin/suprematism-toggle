@@ -23,23 +23,23 @@ we must manually run the publish prehook and save the files.
 - [`supre-toggle`](#supre-toggle)
 
 #### <a id="supre-toggle"></a> `supre-toggle`
-A component for toggleable button groups
+A presentational component using uni-directional data flow for toggleable button groups.
 
 ##### Directives
-- `items: Array<Item>` - The list of item objects for the toggleable button group component.
-- `unrelated: boolean` - Whether or not the toggleable buttons in the group should work unrelated (ie, can be active or inactive regardless of other buttons in the group - all or none of the buttons may be active/inactive) or work in conjunction (ie, selecting one deselects the others - after initial interaction there is always exactly one button active). Defaults to false.
+- `items: Array<Item>` - The list of item objects for the toggleable button group component. (Default []).
+- `disabledItemValues: Array<string> | true` - An array of item values whose toggle should be disabled; true applies to all. (Default []).
+- `activeItemValues: Array<string> | true` - An array of item values whose toggle should be active; true applies to all. (Default []).
+- `warningItemValues: Array<string>` - An array of item values whose toggle should be depicted with warning. (Default []).
 
 ##### Events
-- `toggleUpdated: string | array` - A string which is the selected item; if unrelated, an array of all the selected items.
+- `toggleUpdated: Item` - The item which is the selected item.
 
 #### Interfaces Used
 - `Item` - An object with properties:
   - `value?: string` - The value of the item. If not present, the text. This property must be resolved.
   - `text?: string` - The text of the item.
   - `icon?: string` - The class(es) for a text icon.
-  - `default?: boolean` - Whether or not the item is selected at the start.
-  - `disabled?: boolean` - Whether or not the item is disabled.
-  - `warning?: boolean` - Whether or not the item should be presented with a warning ui.
+  - `class?: string` - A string of static class(es) to apply to the toggle button (eg, -toggle-action, background, open-bottom, etc).
 
 #### States
 - `Toggle-item.is-active` - Item is selected
@@ -47,16 +47,20 @@ A component for toggleable button groups
 - `Toggle-item.is-warning` - Item is presented with a warning ui
 - `Toggle-item.is-icon` - Item is solely an icon - which then uses different styling
 
+#### Static Styling
+- See the toggle classes in the styleguide that can be passed in the item array as static classes.
+
 
 ## Example
 ```html
 <supre-toggle
-  (toggleUpdated)="log($event)"
+  (toggleUpdated)="updateActiveItems($event)"
+  [disabledItemValues]="disabledItemValues"
+  [activeItemValues]="activeItemValues"
   [items]="[
-    {text: 'foo', disabled: true},
-    {text: 'bar', default: true},
-    {text: 'baz', value: 'bazzzzz'},
-    {icon: 'ion-nuclear', value: 'qux', warning: true}
+    {icon: 'u-supre-icon u-supre-icon--refresh-clear', value: 'clear', class: '-toggle-action'},
+    {icon: 'u-supre-icon u-supre-icon--filter', value: 'filter', class: '-toggle-action'},
+    {icon: 'u-supre-icon u-supre-icon--arrow-down-filled', value: 'dataGrid', class: '-toggle-action background open-bottom'}
   ]"
 ></supre-toggle>
 ```

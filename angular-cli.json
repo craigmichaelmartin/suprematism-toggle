@@ -14,7 +14,10 @@
       "tsconfig": "tsconfig.json",
       "prefix": "supre",
       "mobile": false,
-      "styles": [],
+      "styles": [
+        "../node_modules/suprematism-style-guide/dist/suprematism.css",
+        "../node_modules/suprematism-font-icons/style.css"
+      ],
       "scripts": [],
       "environments": {
         "source": "environments/environment.ts",

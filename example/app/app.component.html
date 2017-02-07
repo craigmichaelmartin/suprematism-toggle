@@ -1,35 +1,13 @@
 <div>
-  <h4>Unrelated</h4>
-  <supre-toggle
-    (toggleUpdated)="log($event)"
-    [unrelated]="true"
-    [items]="[
-      {text: 'foo', disabled: this.dynamicDisabled},
-      {text: 'bar', default: true},
-      {text: 'baz', value: 'bazzzzz'},
-      {text: 'bad', warning: true}
-    ]"
-  ></supre-toggle>
-
-  <h4>Related</h4>
-  <supre-toggle
-    (toggleUpdated)="log($event)"
-    [items]="[
-      {text: 'foo', disabled: this.dynamicDisabled},
-      {text: 'bar', default: true},
-      {text: 'baz', value: 'bazzzzz'},
-      {text: 'bad', warning: true}
-    ]"
-  ></supre-toggle>
-
   <h4>Icons Unrelated</h4>
   <supre-toggle
-    (toggleUpdated)="log($event)"
-    [unrelated]="true"
+    (toggleUpdated)="updateActiveItems($event)"
+    [disabledItemValues]="disabledItemValues"
+    [activeItemValues]="activeItemValues"
     [items]="[
-      {icon: 'ion-refresh', value: 'refresh', disabled: this.dynamicDisabled},
-      {icon: 'ion-funnel', value: 'filter', default: true},
-      {icon: 'ion-settings', value: 'settings'}
+      {icon: 'u-supre-icon u-supre-icon--refresh-clear', value: 'clear', class: '-toggle-action'},
+      {icon: 'u-supre-icon u-supre-icon--filter', value: 'filter', class: '-toggle-action'},
+      {icon: 'u-supre-icon u-supre-icon--arrow-down-filled', value: 'dataGrid', class: '-toggle-action background open-bottom'}
     ]"
   ></supre-toggle>
 </div>
