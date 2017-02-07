@@ -8,14 +8,23 @@ declare var require: any;
 })
 export class AppComponent {
 
-  dynamicDisabled = false;
+  disabledItemValues = [];
+  activeItemValues = [];
 
-  log(event) {
-    console.log(event);
+  updateActiveItems(item) {
+    if (this.activeItemValues.indexOf(item.value) === -1) {
+      this.activeItemValues.push(item.value);
+    } else {
+      this.activeItemValues = this.activeItemValues.filter(x => x !== item.value);
+    }
   }
 
   updateDynamicDisabled() {
-    this.dynamicDisabled = !this.dynamicDisabled;
+    if (this.disabledItemValues.length) {
+      this.disabledItemValues = [];
+    } else {
+      this.disabledItemValues = ['clear', 'filter', 'dataGrid'];
+    }
   }
 
 }
