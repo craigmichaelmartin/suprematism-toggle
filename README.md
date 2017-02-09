@@ -1,6 +1,6 @@
 # Suprematism Toggle
 
-An Angular 2 component for toggleable button groups
+An Angular presentational component using uni-directional data flow for toggleable button groups.
 
 
 #### Installation
@@ -23,7 +23,6 @@ we must manually run the publish prehook and save the files.
 - [`supre-toggle`](#supre-toggle)
 
 #### <a id="supre-toggle"></a> `supre-toggle`
-A presentational component using uni-directional data flow for toggleable button groups.
 
 ##### Directives
 - `items: Array<Item>` - The list of item objects for the toggleable button group component. (Default []).
