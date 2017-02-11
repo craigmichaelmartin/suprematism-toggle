@@ -38,4 +38,4 @@ var ToggleModule = (function () {
     return ToggleModule;
 }());
 exports.ToggleModule = ToggleModule;
-//# sourceMappingURL=/Users/craigmartin/projects/suprematism-toggle/src/index.js.map
+//# sourceMappingURL=/Users/zacharyfantauzzi/workspace/suprematism-toggle/src/index.js.map

@@ -11,6 +11,7 @@ export interface Item {
 }
 export declare class ToggleComponent implements OnInit {
     items: Array<Item>;
+    parentWrapperClass?: string;
     disabledItemValues: Array<string> | true;
     activeItemValues: Array<string> | true;
     warningItemValues: Array<string>;

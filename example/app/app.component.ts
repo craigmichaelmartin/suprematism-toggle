@@ -10,6 +10,8 @@ export class AppComponent {
 
   disabledItemValues = [];
   activeItemValues = [];
+  conjunction: 'and'|'or';
+  activeToggles = [];
 
   updateActiveItems(item) {
     if (this.activeItemValues.indexOf(item.value) === -1) {
@@ -25,6 +27,11 @@ export class AppComponent {
     } else {
       this.disabledItemValues = ['clear', 'filter', 'dataGrid'];
     }
+  }
+
+  conjunctionUpdated (event) {
+    this.activeToggles = [];
+    this.activeToggles.push(event.value);
   }
 
 }
