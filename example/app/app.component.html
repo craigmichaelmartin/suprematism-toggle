@@ -1,4 +1,4 @@
-<div>
+<div class="_pxl">
   <h4>Icons Unrelated</h4>
   <supre-toggle
     (toggleUpdated)="updateActiveItems($event)"
@@ -10,6 +10,18 @@
       {icon: 'u-supre-icon u-supre-icon--arrow-down-filled', value: 'dataGrid', class: '-toggle-action background open-bottom'}
     ]"
   ></supre-toggle>
+  <hr>
+  <button class="-action _mtl" (click)="updateDynamicDisabled()">Toggle Disabled</button>
 </div>
-<hr>
-<button (click)="updateDynamicDisabled()">Toggle Disabled</button>
+
+<div class="_mtxl _mlxl">
+  <supre-toggle
+    [parentWrapperClass]="activeToggles.length > 0 ? 'has-selection' : ''"
+    (toggleUpdated)="conjunctionUpdated($event)"
+    [activeItemValues]="activeToggles"
+    [items]="[
+      {text: 'and', value: 'and'},
+      {text: 'or', value: 'or'}
+    ]">
+  </supre-toggle>
+</div>

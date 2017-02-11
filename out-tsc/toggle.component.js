@@ -17,6 +17,7 @@ require('rxjs/add/operator/scan');
 var ToggleComponent = (function () {
     function ToggleComponent() {
         this.items = [];
+        this.parentWrapperClass = '';
         this.disabledItemValues = [];
         this.activeItemValues = [];
         this.warningItemValues = [];
@@ -38,6 +39,10 @@ var ToggleComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Array)
     ], ToggleComponent.prototype, "items", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ToggleComponent.prototype, "parentWrapperClass", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -65,4 +70,4 @@ var ToggleComponent = (function () {
     return ToggleComponent;
 }());
 exports.ToggleComponent = ToggleComponent;
-//# sourceMappingURL=/Users/craigmartin/projects/suprematism-toggle/src/toggle.component.js.map
+//# sourceMappingURL=/Users/zacharyfantauzzi/workspace/suprematism-toggle/src/toggle.component.js.map

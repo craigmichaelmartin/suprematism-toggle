@@ -24,27 +24,28 @@ we must manually run the publish prehook and save the files.
 
 #### <a id="supre-toggle"></a> `supre-toggle`
 
-##### Directives
-- `items: Array<Item>` - The list of item objects for the toggleable button group component. (Default []).
-- `disabledItemValues: Array<string> | true` - An array of item values whose toggle should be disabled; true applies to all. (Default []).
-- `activeItemValues: Array<string> | true` - An array of item values whose toggle should be active; true applies to all. (Default []).
-- `warningItemValues: Array<string>` - An array of item values whose toggle should be depicted with warning. (Default []).
+##### Inputs/Attributes
+- `parentWrapperClass: string`<br>An optional css class to apply to the parent containter of the toggle buttons
+- `items: Array<Item>`<br>The list of item objects for the toggleable button group component. (Default []).
+- `disabledItemValues: Array<string> | true`<br>An array of item values whose toggle should be disabled; true applies to all. (Default []).
+- `activeItemValues: Array<string> | true`<br>An array of item values whose toggle should be active; true applies to all. (Default []).
+- `warningItemValues: Array<string>`<br>An array of item values whose toggle should be depicted with warning. (Default []).
 
 ##### Events
-- `toggleUpdated: Item` - The item which is the selected item.
+- `toggleUpdated: Item`<br>The item which is the selected item.
 
 #### Interfaces Used
-- `Item` - An object with properties:
-  - `value?: string` - The value of the item. If not present, the text. This property must be resolved.
-  - `text?: string` - The text of the item.
-  - `icon?: string` - The class(es) for a text icon.
-  - `class?: string` - A string of static class(es) to apply to the toggle button (eg, -toggle-action, background, open-bottom, etc).
+- `Item`<br>An object with properties:
+- `value?: string`<br>The value of the item. If not present, the text. This property must be resolved.
+- `text?: string`<br>The text of the item.
+- `icon?: string`<br>The class(es) for a text icon.
+- `class?: string`<br>A string of static class(es) to apply to the toggle button (eg, -toggle-action, background, open-bottom, etc).
 
 #### States
-- `Toggle-item.is-active` - Item is selected
-- `Toggle-item.is-disabled` - Item is not selectable
-- `Toggle-item.is-warning` - Item is presented with a warning ui
-- `Toggle-item.is-icon` - Item is solely an icon - which then uses different styling
+- `Toggle-item.is-active`<br>Item is selected
+- `Toggle-item.is-disabled`<br>Item is not selectable
+- `Toggle-item.is-warning`<br>Item is presented with a warning ui
+- `Toggle-item.is-icon`<br>Item is solely an icon - which then uses different styling
 
 #### Static Styling
 - See the toggle classes in the styleguide that can be passed in the item array as static classes.
@@ -53,6 +54,7 @@ we must manually run the publish prehook and save the files.
 ## Example
 ```html
 <supre-toggle
+  [parentWrapperClass]="'css-class-name'"
   (toggleUpdated)="updateActiveItems($event)"
   [disabledItemValues]="disabledItemValues"
   [activeItemValues]="activeItemValues"
