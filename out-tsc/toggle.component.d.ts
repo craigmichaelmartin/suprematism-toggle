@@ -5,16 +5,16 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/scan';
 export interface Item {
-    value?: string;
+    value?: any;
     text?: string;
     icon?: string;
 }
 export declare class ToggleComponent implements OnInit {
     items: Array<Item>;
     parentWrapperClass?: string;
-    disabledItemValues: Array<string> | true;
-    activeItemValues: Array<string> | true;
-    warningItemValues: Array<string>;
+    disabledItemValues: Array<any> | true;
+    activeItemValues: Array<any> | true;
+    warningItemValues: Array<any>;
     toggleUpdated: EventEmitter<{}>;
     mappedItems: Array<Item>;
     ngOnInit(): void;

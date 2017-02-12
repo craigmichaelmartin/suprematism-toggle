@@ -6,7 +6,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/scan';
 
 export interface Item {
-  value?: string;
+  value?: any;
   text?: string;
   icon?: string;
 }
@@ -19,9 +19,9 @@ export class ToggleComponent implements OnInit {
 
   @Input() items: Array<Item> = [];
   @Input() parentWrapperClass? = '';
-  @Input() disabledItemValues: Array<string> | true = [];
-  @Input() activeItemValues: Array<string> | true = [];
-  @Input() warningItemValues: Array<string> = [];
+  @Input() disabledItemValues: Array<any> | true = [];
+  @Input() activeItemValues: Array<any> | true = [];
+  @Input() warningItemValues: Array<any> = [];
   @Output() toggleUpdated = new EventEmitter();
   mappedItems: Array<Item>;
 
