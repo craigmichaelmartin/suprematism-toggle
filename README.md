@@ -27,16 +27,16 @@ we must manually run the publish prehook and save the files.
 ##### Inputs/Attributes
 - `parentWrapperClass: string`<br>An optional css class to apply to the parent containter of the toggle buttons
 - `items: Array<Item>`<br>The list of item objects for the toggleable button group component. (Default []).
-- `disabledItemValues: Array<string> | true`<br>An array of item values whose toggle should be disabled; true applies to all. (Default []).
-- `activeItemValues: Array<string> | true`<br>An array of item values whose toggle should be active; true applies to all. (Default []).
-- `warningItemValues: Array<string>`<br>An array of item values whose toggle should be depicted with warning. (Default []).
+- `disabledItemValues: Array<any> | true`<br>An array of item values whose toggle should be disabled; true applies to all. (Default []).
+- `activeItemValues: Array<any> | true`<br>An array of item values whose toggle should be active; true applies to all. (Default []).
+- `warningItemValues: Array<any>`<br>An array of item values whose toggle should be depicted with warning. (Default []).
 
 ##### Events
 - `toggleUpdated: Item`<br>The item which is the selected item.
 
 #### Interfaces Used
 - `Item`<br>An object with properties:
-- `value?: string`<br>The value of the item. If not present, the text. This property must be resolved.
+- `value?: any`<br>The value of the item. If not present, the text. This property must be resolved.
 - `text?: string`<br>The text of the item.
 - `icon?: string`<br>The class(es) for a text icon.
 - `class?: string`<br>A string of static class(es) to apply to the toggle button (eg, -toggle-action, background, open-bottom, etc).
