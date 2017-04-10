@@ -1,14 +1,14 @@
-import { SuprematismTogglePage } from './app.po';
+import { SuprematismToggleUpdatePage } from './app.po';
 
-describe('suprematism-toggle App', function() {
-  let page: SuprematismTogglePage;
+describe('suprematism-toggle-update App', () => {
+  let page: SuprematismToggleUpdatePage;
 
   beforeEach(() => {
-    page = new SuprematismTogglePage();
+    page = new SuprematismToggleUpdatePage();
   });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('supre works!');
   });
 });
