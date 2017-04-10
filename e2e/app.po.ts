@@ -1,7 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class SuprematismTogglePage {
-
+export class SuprematismToggleUpdatePage {
   navigateTo() {
     return browser.get('/');
   }

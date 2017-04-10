@@ -12,8 +12,8 @@ export interface Item {
 }
 @Component({
   selector: 'supre-toggle',
-  template: require('./toggle.component.html'),
-  styles: [require('./toggle.component.css')]
+  templateUrl: ('./toggle.component.html'),
+  styleUrls: ['./toggle.component.scss']
 })
 export class ToggleComponent implements OnInit {
 
