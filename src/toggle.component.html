@@ -4,6 +4,7 @@
     (click)="onClick(item);"
     [disabled]="disabledItemValues === true || (disabledItemValues && disabledItemValues.indexOf(item.value) > -1)"
     [class]="item.class || '-toggle'"
+    [supreData]="item.data"
     [ngClass]="{
       'is-active': (activeItemValues === true
           || (activeItemValues && activeItemValues.indexOf(item.value) > -1))
