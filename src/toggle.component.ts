@@ -9,6 +9,7 @@ export interface Item {
   value?: any;
   text?: string;
   icon?: string;
+  data?: any;
 }
 @Component({
   selector: 'supre-toggle',
