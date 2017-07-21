@@ -10,8 +10,11 @@ export class AppComponent {
 
   disabledItemValues = [];
   activeItemValues = [];
-  conjunction: 'and'|'or';
+  conjunction: 'and'|'or' = 'and';
   activeToggles = [];
+  disabled = false;
+  toggleUpdatedValue: any;
+  multiModeToggleUpdatedValue: any;
 
   updateActiveItems(item) {
     if (this.activeItemValues.indexOf(item.value) === -1) {
@@ -34,4 +37,15 @@ export class AppComponent {
     this.activeToggles.push(event.value);
   }
 
+  updateDisabled() {
+    this.disabled = !this.disabled;
+  }
+
+  onToggleUpdate(item: any) {
+    this.toggleUpdatedValue = item.value;
+  }
+
+  onMultiModeToggleUpdate(item: any) {
+    this.multiModeToggleUpdatedValue = item.value;
+  }
 }

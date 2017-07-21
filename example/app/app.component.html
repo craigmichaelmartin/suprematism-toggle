@@ -1,27 +1,26 @@
 <div class="_pxl">
   <h4>Icons Unrelated</h4>
-  <supre-toggle
-    (toggleUpdated)="updateActiveItems($event)"
-    [disabledItemValues]="disabledItemValues"
-    [activeItemValues]="activeItemValues"
-    [items]="[
-      {icon: 'u-supre-icon u-supre-icon--refresh-clear', value: 'clear', class: '-toggle-action', data : {'qa-id' : 'clear'}},
-      {icon: 'u-supre-icon u-supre-icon--filter', value: 'filter', class: '-toggle-action', data : {'qa-id' : 'filter'}},
-      {icon: 'u-supre-icon u-supre-icon--arrow-down-filled', value: 'dataGrid', class: '-toggle-action background open-bottom', data : {'qa-id' : 'open'}}
-    ]"
-  ></supre-toggle>
+  <supre-toggle-group multi-mode (toggleUpdated)="onMultiModeToggleUpdate($event)">
+    <button supre-toggle-icon-button value="clear" [supreData]="{'qa-id' : 'clear'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--refresh-clear"></span>
+    </button>
+    <button supre-toggle-icon-button value="filter" [supreData]="{'qa-id' : 'filter'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--filter"></span>
+    </button>
+    <button supre-toggle-icon-button value="dataGrid" class="background open-bottom" [supreData]="{'qa-id' : 'open'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--arrow-down-filled"></span>
+    </button>
+  </supre-toggle-group>
   <hr>
-  <button class="-action _mtl" (click)="updateDynamicDisabled()">Toggle Disabled</button>
+  <label>ToggleUpdated Value: {{multiModeToggleUpdatedValue}}</label>
+  <button class="-action _mtl" (click)="updateDisabled()">Toggle Disabled</button>
 </div>
-
-<div class="_mtxl _mlxl">
-  <supre-toggle
-    [parentWrapperClass]="activeToggles.length > 0 ? 'has-selection' : ''"
-    (toggleUpdated)="conjunctionUpdated($event)"
-    [activeItemValues]="activeToggles"
-    [items]="[
-      {text: 'and', value: 'and'},
-      {text: 'or', value: 'or'}
-    ]">
-  </supre-toggle>
+<div class="_pxl">
+  <supre-toggle-group #group="supreToggleGroup" [ngClass]="group.isInitialized && group.value ? 'has-selection' : ''" (toggleUpdated)="onToggleUpdate($event)" [value]="conjunction">
+    <button supre-toggle-button value="and">and</button>
+    <button supre-toggle-button value="or">or</button>
+  </supre-toggle-group>
+  <hr>
+  <label>Selected Value: {{group.value}}</label>
+  <label>ToggleUpdated Value: {{toggleUpdatedValue}}</label>
 </div>

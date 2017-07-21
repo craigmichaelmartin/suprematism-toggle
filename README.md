@@ -20,48 +20,45 @@ we must manually run the publish prehook and save the files.
 
 
 ## Components
-- [`supre-toggle`](#supre-toggle)
+- [`supre-toggle-group`](#supre-toggle)
+- [`supre-toggle-button`](#supre-toggle-button)
 
-#### <a id="supre-toggle"></a> `supre-toggle`
+#### <a id="supre-toggle"></a> `supre-toggle-group`
 
 ##### Inputs/Attributes
-- `parentWrapperClass: string`<br>An optional css class to apply to the parent containter of the toggle buttons
-- `items: Array<Item>`<br>The list of item objects for the toggleable button group component. (Default []).
-- `disabledItemValues: Array<any> | true`<br>An array of item values whose toggle should be disabled; true applies to all. (Default []).
-- `activeItemValues: Array<any> | true`<br>An array of item values whose toggle should be active; true applies to all. (Default []).
-- `warningItemValues: Array<any>`<br>An array of item values whose toggle should be depicted with warning. (Default []).
+- `value: any`<br>The current value of the toggle group. (Default '').
+- `multi-mode: boolean`<br>An optional attribute for multi-selection mode. When present, indicates the buttons will behave like checkboxes.
 
 ##### Events
-- `toggleUpdated: Item`<br>The item which is the selected item.
+- `toggleUpdated: Button`<br>The button which is the selected button.
 
-#### Interfaces Used
-- `Item`<br>An object with properties:
-- `value?: any`<br>The value of the item. If not present, the text. This property must be resolved.
-- `text?: string`<br>The text of the item.
-- `icon?: string`<br>The class(es) for a text icon.
-- `class?: string`<br>A string of static class(es) to apply to the toggle button (eg, -toggle-action, background, open-bottom, etc).
-
-#### States
-- `Toggle-item.is-active`<br>Item is selected
-- `Toggle-item.is-disabled`<br>Item is not selectable
-- `Toggle-item.is-warning`<br>Item is presented with a warning ui
-- `Toggle-item.is-icon`<br>Item is solely an icon - which then uses different styling
-
-#### Static Styling
+##### Static Styling
 - See the toggle classes in the styleguide that can be passed in the item array as static classes.
 
+#### <a id="supre-toggle-button"></a> `supre-toggle-button`
+
+##### States
+- `button.is-active`<br>Item is selected
+- `button.is-disabled`<br>Item is not selectable
+- `button.is-warning`<br>Item is presented with a warning ui
+
+##### Inputs/Attributes
+- `selected: string`<br>Whether the button is selected. (Default false)
+- `value: any`<br>The current value of the button. (Default '').
+- `disabled: any`<br>Whether the button is disabled. (Default false).
+- `supreData: any`<br>Additional data that can be added to the button. (Default {}).
 
 ## Example
 ```html
-<supre-toggle
-  [parentWrapperClass]="'css-class-name'"
-  (toggleUpdated)="updateActiveItems($event)"
-  [disabledItemValues]="disabledItemValues"
-  [activeItemValues]="activeItemValues"
-  [items]="[
-    {icon: 'u-supre-icon u-supre-icon--refresh-clear', value: 'clear', class: '-toggle-action'},
-    {icon: 'u-supre-icon u-supre-icon--filter', value: 'filter', class: '-toggle-action'},
-    {icon: 'u-supre-icon u-supre-icon--arrow-down-filled', value: 'dataGrid', class: '-toggle-action background open-bottom'}
-  ]"
-></supre-toggle>
+<supre-toggle-group multi-mode (toggleUpdated)="onMultiModeToggleUpdate($event)">
+    <button supre-toggle-icon-button value="clear" [supreData]="{'qa-id' : 'clear'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--refresh-clear"></span>
+    </button>
+    <button supre-toggle-icon-button value="filter" [supreData]="{'qa-id' : 'filter'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--filter"></span>
+    </button>
+    <button supre-toggle-icon-button value="dataGrid" class="background open-bottom" [supreData]="{'qa-id' : 'open'}" [disabled]="disabled">
+      <span class="u-supre-icon u-supre-icon--arrow-down-filled"></span>
+    </button>
+</supre-toggle-group>
 ```
