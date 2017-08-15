@@ -1,6 +1,13 @@
 import {
-  AfterViewInit, ChangeDetectorRef,
-  ContentChildren, Directive, EventEmitter, forwardRef, HostBinding, Input, Output,
+  AfterViewInit,
+  ChangeDetectorRef,
+  ContentChildren,
+  Directive,
+  EventEmitter,
+  forwardRef,
+  HostBinding,
+  Input,
+  Output,
   QueryList
 } from '@angular/core';
 import { SupreToggleButtonComponent } from './toggle-button.component';
@@ -23,8 +30,11 @@ export class SupreToggleGroupDirective implements AfterViewInit {
   private isMultiMode: boolean;
   private isInitialized: boolean;
 
-  @HostBinding('class') @Input('class') class = '';
-  @HostBinding('class.supre-toggle-group') get toggleGroupClass() {
+  @HostBinding('class')
+  @Input('class')
+  class = '';
+  @HostBinding('class.supre-toggle-group')
+  get toggleGroupClass() {
     return true;
   }
 
@@ -32,7 +42,8 @@ export class SupreToggleGroupDirective implements AfterViewInit {
    * Multi selection toggle group.  Buttons act like checkboxes when this attribute is present
    * @returns {string}
    */
-  @Input('multi-mode') get multiModeAttribute(): string {
+  @Input('multi-mode')
+  get multiModeAttribute(): string {
     return null;
   }
   set multiModeAttribute(newValue: string) {
@@ -51,7 +62,8 @@ export class SupreToggleGroupDirective implements AfterViewInit {
   /**
    * Child buttons in toggle group
    */
-  @ContentChildren(forwardRef(() => SupreToggleButtonComponent)) buttons: QueryList<SupreToggleButtonComponent>;
+  @ContentChildren(forwardRef(() => SupreToggleButtonComponent))
+  buttons: QueryList<SupreToggleButtonComponent>;
 
   /**
    * Event emitter that fires when value is updated.
@@ -99,7 +111,11 @@ export class SupreToggleGroupDirective implements AfterViewInit {
     this.selectedButton = selected;
     this.value = selected ? selected.value : null;
 
-    if (!this.isMultiMode && this.selectedButton && this.selectedButton.checked) {
+    if (
+      !this.isMultiMode &&
+      this.selectedButton &&
+      this.selectedButton.checked
+    ) {
       this.buttons.forEach((button: SupreToggleButtonComponent) => {
         if (button !== this.selectedButton) {
           button.checked = false;

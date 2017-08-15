@@ -9,6 +9,6 @@ describe('suprematism-toggle-update App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('supre works!');
+    expect<any>(page.getParagraphText()).toEqual('Icons Unrelated');
   });
 });

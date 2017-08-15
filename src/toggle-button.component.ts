@@ -1,6 +1,14 @@
 import {
-  ChangeDetectionStrategy, Component, ElementRef, forwardRef, HostBinding, Inject, Input, OnInit,
-  Optional, Renderer2,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  forwardRef,
+  HostBinding,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+  Renderer2,
   ViewEncapsulation
 } from '@angular/core';
 import { SupreToggleGroupDirective } from './toggle-group.directive';
@@ -19,13 +27,16 @@ export class SupreToggleButtonComponent implements OnInit {
   private isDisabled: boolean;
   private isWarning: boolean;
 
-  @HostBinding('class') @Input('class') class = '';
+  @HostBinding('class')
+  @Input('class')
+  class = '';
 
   /**
    * Class used when this button contains icons
    * @returns {boolean}
    */
-  @HostBinding('class.-toggle-action') get toggleActionClass() {
+  @HostBinding('class.-toggle-action')
+  get toggleActionClass() {
     return this.toggleGroup && this.toggleGroup.MultiMode;
   }
 
@@ -33,7 +44,8 @@ export class SupreToggleButtonComponent implements OnInit {
    * Class used when this button contains text
    * @returns {boolean}
    */
-  @HostBinding('class.-toggle') get toggleClass() {
+  @HostBinding('class.-toggle')
+  get toggleClass() {
     return this.toggleGroup && !this.toggleGroup.MultiMode;
   }
 
@@ -65,9 +77,12 @@ export class SupreToggleButtonComponent implements OnInit {
   }
 
   constructor(
-    @Optional() @Inject(forwardRef(() => SupreToggleGroupDirective)) toggleGroup: SupreToggleGroupDirective,
+    @Optional()
+    @Inject(forwardRef(() => SupreToggleGroupDirective))
+    toggleGroup: SupreToggleGroupDirective,
     private elementRef: ElementRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2
+  ) {
     this.toggleGroup = toggleGroup;
   }
 
@@ -81,7 +96,11 @@ export class SupreToggleButtonComponent implements OnInit {
   }
   set value(newValue: any) {
     if (this.val !== newValue) {
-      if (this.toggleGroup && this.checked && this.toggleGroup.value !== newValue) {
+      if (
+        this.toggleGroup &&
+        this.checked &&
+        this.toggleGroup.value !== newValue
+      ) {
         this.toggleGroup.value = newValue;
       }
       this.val = newValue;
@@ -105,9 +124,15 @@ export class SupreToggleButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {this.onClick(event); });
+    this.renderer.listen(this.elementRef.nativeElement, 'click', event => {
+      this.onClick(event);
+    });
 
-    if (this.toggleGroup && this.toggleGroup.value && this.val === this.toggleGroup.value) {
+    if (
+      this.toggleGroup &&
+      this.toggleGroup.value &&
+      this.val === this.toggleGroup.value
+    ) {
       this.isChecked = true;
     }
   }

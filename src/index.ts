@@ -9,9 +9,7 @@ export * from './toggle-button.component';
 export * from './data.directive';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [
     DataDirective,
     SupreToggleGroupDirective,
@@ -23,6 +21,4 @@ export * from './data.directive';
     SupreToggleButtonComponent
   ]
 })
-export class ToggleModule {
-
-}
+export class ToggleModule {}

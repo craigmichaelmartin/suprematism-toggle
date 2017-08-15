@@ -5,14 +5,9 @@ import { AppComponent } from './app.component';
 import { ToggleModule } from '../../src/index';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    ToggleModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, ToggleModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
