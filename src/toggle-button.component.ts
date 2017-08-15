@@ -145,7 +145,7 @@ export class SupreToggleButtonComponent implements OnInit {
     this.toggle();
   }
 
-  private toggle(): void {
+  public toggle(): void {
     // Only uncheck if we're in multi-mode.
     if (!this.toggleGroup.MultiMode && this.isChecked) {
       return;

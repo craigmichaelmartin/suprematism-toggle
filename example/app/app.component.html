@@ -20,6 +20,8 @@
     <button supre-toggle-button value="and">and</button>
     <button supre-toggle-button value="or">or</button>
   </supre-toggle-group>
+  <button class="-action _mtl" (click)="conjunction = conjunction === 'or' ? 'and' : 'or'">Toggle Value Externally</button>
+
   <hr>
   <label>Selected Value: {{group.value}}</label>
   <label>ToggleUpdated Value: {{toggleUpdatedValue}}</label>
