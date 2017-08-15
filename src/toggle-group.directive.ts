@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { SupreToggleButtonComponent } from './toggle-button.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isNullOrUndefined } from 'util';
 
 export const SupreToggleGroupProvider: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -85,7 +86,7 @@ export class SupreToggleGroupDirective implements AfterViewInit {
 
       // Don't emit change event for initial value
       if (this.isInitialized) {
-        this.toggleUpdated.next(this.selectedButton);
+        this.updateSelectedButtonFromValue();
       }
     } else {
       if (this.val !== newValue) {
@@ -93,7 +94,7 @@ export class SupreToggleGroupDirective implements AfterViewInit {
 
         // Don't emit change event for initial value
         if (this.isInitialized) {
-          this.toggleUpdated.next(this.selectedButton);
+          this.updateSelectedButtonFromValue();
         }
       }
     }
@@ -131,5 +132,21 @@ export class SupreToggleGroupDirective implements AfterViewInit {
 
     // Force change detection here so we can avoid ExpressionChangedAfterItHasBeenCheckedError
     this.changeDetectorRef.detectChanges();
+  }
+
+  private updateSelectedButtonFromValue() {
+    const alreadySelected =
+      !isNullOrUndefined(this.selectedButton) &&
+      this.selectedButton.value === this.val;
+
+    if (!isNullOrUndefined(this.buttons) && !alreadySelected) {
+      this.selectedButton = this.buttons.filter(button => {
+        return button.value === this.val;
+      })[0];
+      if (!isNullOrUndefined(this.selectedButton)) {
+        this.selectedButton.toggle();
+      }
+    }
+    this.toggleUpdated.next(this.selectedButton);
   }
 }
