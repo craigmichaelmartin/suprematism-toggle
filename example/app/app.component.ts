@@ -7,10 +7,9 @@ declare var require: any;
   template: require('./app.component.html')
 })
 export class AppComponent {
-
   disabledItemValues = [];
   activeItemValues = [];
-  conjunction: 'and'|'or' = 'and';
+  conjunction: 'and' | 'or' = 'and';
   activeToggles = [];
   disabled = false;
   toggleUpdatedValue: any;
@@ -20,7 +19,9 @@ export class AppComponent {
     if (this.activeItemValues.indexOf(item.value) === -1) {
       this.activeItemValues.push(item.value);
     } else {
-      this.activeItemValues = this.activeItemValues.filter(x => x !== item.value);
+      this.activeItemValues = this.activeItemValues.filter(
+        x => x !== item.value
+      );
     }
   }
 
@@ -32,7 +33,7 @@ export class AppComponent {
     }
   }
 
-  conjunctionUpdated (event) {
+  conjunctionUpdated(event) {
     this.activeToggles = [];
     this.activeToggles.push(event.value);
   }

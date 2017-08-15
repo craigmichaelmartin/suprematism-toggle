@@ -1,5 +1,7 @@
 # Suprematism Toggle
 
+[![Build Status][travis-badge]][travis-badge-url]
+
 An Angular presentational component using uni-directional data flow for toggleable button groups.
 
 
@@ -62,3 +64,6 @@ we must manually run the publish prehook and save the files.
     </button>
 </supre-toggle-group>
 ```
+
+[travis-badge]: https://travis-ci.org/CINBCUniversal/suprematism-toggle.svg?branch=master
+[travis-badge-url]: https://travis-ci.org/CINBCUniversal/suprematism-toggle

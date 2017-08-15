@@ -6,11 +6,9 @@ import { Directive, Input, OnChanges, ElementRef } from '@angular/core';
   selector: '[supreData]'
 })
 export class DataDirective implements OnChanges {
-
   @Input() supreData: any;
 
-  constructor(private el: ElementRef) { }
-
+  constructor(private el: ElementRef) {}
 
   ngOnChanges(changes) {
     const dataChanges = changes.supreData;
@@ -27,11 +25,13 @@ export class DataDirective implements OnChanges {
       if (current) {
         for (const propName in current) {
           if (current.hasOwnProperty(propName)) {
-            this.el.nativeElement.setAttribute(`data-${propName}`, current[propName]);
+            this.el.nativeElement.setAttribute(
+              `data-${propName}`,
+              current[propName]
+            );
           }
         }
       }
     }
   }
-
 }
