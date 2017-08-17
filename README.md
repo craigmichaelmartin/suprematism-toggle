@@ -1,5 +1,7 @@
 # Suprematism Toggle
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/CINBCUniversal/suprematism-toggle.svg)](https://greenkeeper.io/)
+
 [![Build Status][travis-badge]][travis-badge-url]
 
 An Angular presentational component using uni-directional data flow for toggleable button groups.
